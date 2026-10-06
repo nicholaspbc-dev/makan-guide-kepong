@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Makan Guide – Kepong &amp; Menjalara</title>
+    <style>
+      :root {
+        --bg: #fff2cc;
+        --card: #fff;
+        --ink: #2d1b3d;
+        --mut: #7a6688;
+        --acc: #d6249f;
+        --acc2: #ffe0f3;
+        --line: #f3d3ea;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1a1030;
+          --card: #2a1a45;
+          --ink: #fdf0ff;
+          --mut: #c4a9d8;
+          --acc: #ff6ec7;
+          --acc2: #4a2060;
+          --line: #47306b;
+        }
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0 auto;
+        max-width: 720px;
+        padding: 0 16px 30px;
+        background: radial-gradient(circle at 10% 0%, #ff9ad5 0, transparent 35%),
+          radial-gradient(circle at 95% 15%, #5eead4 0, transparent 30%),
+          radial-gradient(circle at 20% 90%, #a78bfa 0, transparent 35%),
+          radial-gradient(circle at 90% 85%, #ffd43b 0, transparent 30%), var(--bg);
+        background-attachment: fixed;
+        color: var(--ink);
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-size: 17px;
+        line-height: 1.4;
+      }
+
+      .t { position: absolute; top: 0; left: 0; height: 1px; width: 1px; }
+      .rd { position: absolute; opacity: 0; pointer-events: none; }
+
+      header {
+        margin-top: 16px;
+        padding: 22px 18px 18px;
+        border-radius: 26px;
+        background: linear-gradient(135deg, #7c3aed, #ec4899 55%, #fb923c);
+        box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35);
+        color: #fff;
+      }
+
+      .logo {
+        font-size: 2.1rem;
+        font-weight: 900;
+        line-height: 1.05;
+        letter-spacing: -0.5px;
+        margin: 0;
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+      }
+
+      .logo b { color: #fde047; }
+      .sub { margin: 8px 0 0; font-weight: 600; }
+
+      h2 {
+        font-size: 1.4rem;
+        margin: 20px 0 12px;
+      }
+
+      .meals,
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .grid { gap: 10px; }
+
+      .meal {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 22px;
+        padding: 18px 14px;
+        min-height: 150px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .meal .e { font-size: 2.4rem; }
+      .meal b {
+        display: block;
+        font-size: 1.3rem;
+        margin-top: 4px;
+      }
+
+      .meal small {
+        display: block;
+        opacity: 0.92;
+        font-size: 0.85rem;
+        margin-top: 2px;
+      }
+
+      .meal i {
+        display: inline-block;
+        margin-top: 8px;
+        background: rgba(255, 255, 255, 0.28);
+        border-radius: 99px;
+        padding: 2px 10px;
+        font-style: normal;
+        font-size: 0.85rem;
+      }
+
+      .cu {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--card);
+        border: 2px solid var(--line);
+        border-radius: 16px;
+        padding: 14px 12px;
+        color: var(--ink);
+        text-decoration: none;
+        min-height: 64px;
+      }
+
+      .cu span { font-size: 1.6rem; }
+      .cu small {
+        display: block;
+        color: var(--mut);
+      }
+
+      .back {
+        display: inline-block;
+        color: var(--acc);
+        font-weight: 700;
+        text-decoration: none;
+        padding: 12px 0 4px;
+      }
+
+      .steps {
+        color: var(--mut);
+        font-size: 0.85rem;
+        margin: 2px 0;
+      }
+
+      .center { text-align: center; }
+
+      .all {
+        display: inline-block;
+        background: var(--acc);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        border-radius: 99px;
+        padding: 12px 20px;
+        margin-top: 18px;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 6px 0 12px;
+      }
+
+      .chips label {
+        padding: 9px 14px;
+        border-radius: 99px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        cursor: pointer;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+        margin-bottom: 10px;
+      }
+
+      .card h3 { margin: 0 0 4px; font-size: 1.05rem; }
+      .tag {
+        display: inline-block;
+        background: var(--acc2);
+        border-radius: 8px;
+        padding: 2px 8px;
+        font-size: 0.82rem;
+        margin: 2px 4px 2px 0;
+      }
+
+      .tip {
+        color: var(--mut);
+        font-size: 0.92rem;
+        margin: 4px 0;
+      }
+
+      .card a {
+        display: inline-block;
+        color: var(--acc);
+        font-weight: 700;
+        text-decoration: none;
+        padding: 6px 0;
+      }
+
+      footer {
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-top: 20px;
+      }
+
+      .cuis, .hd, .areas, .card { display: none; }
+
+      #b:target ~ main .home { display: none; }
+      #b:target ~ main .cuis-b { display: block; }
+      #b-all:target ~ main .home { display: none; }
+      #b-all:target ~ main .card.M-b { display: block; }
+      #b-all:target ~ main .hd-b-all { display: block; }
+      #b-C:target ~ main .home { display: none; }
+      #b-C:target ~ main .card.M-b.C-C { display: block; }
+      #b-C:target ~ main .hd-b-C { display: block; }
+      #b-N:target ~ main .home { display: none; }
+      #b-N:target ~ main .card.M-b.C-N { display: block; }
+      #b-N:target ~ main .hd-b-N { display: block; }
+      #b-M:target ~ main .home { display: none; }
+      #b-M:target ~ main .card.M-b.C-M { display: block; }
+      #b-M:target ~ main .hd-b-M { display: block; }
+      #b-I:target ~ main .home { display: none; }
+      #b-I:target ~ main .card.M-b.C-I { display: block; }
+      #b-I:target ~ main .hd-b-I { display: block; }
+      #b-K:target ~ main .home { display: none; }
+      #b-K:target ~ main .card.M-b.C-K { display: block; }
+      #b-K:target ~ main .hd-b-K { display: block; }
+      #b-F:target ~ main .home { display: none; }
+      #b-F:target ~ main .card.M-b.C-F { display: block; }
+      #b-F:target ~ main .hd-b-F { display: block; }
+      #b-D:target ~ main .home { display: none; }
+      #b-D:target ~ main .card.M-b.C-D { display: block; }
+      #b-D:target ~ main .hd-b-D { display: block; }
+      #b-V:target ~ main .home { display: none; }
+      #b-V:target ~ main .card.M-b.C-V { display: block; }
+      #b-V:target ~ main .hd-b-V { display: block; }
+      #b-X:target ~ main .home { display: none; }
+      #b-X:target ~ main .card.M-b.C-X { display: block; }
+      #b-X:target ~ main .hd-b-X { display: block; }
+      #l:target ~ main .home { display: none; }
+      #l:target ~ main .cuis-l { display: block; }
+      #l-all:target ~ main .home { display: none; }
+      #l-all:target ~ main .card.M-l { display: block; }
+      #l-all:target ~ main .hd-l-all { display: block; }
+      #l-C:target ~ main .home { display: none; }
+      #l-C:target ~ main .card.M-l.C-C { display: block; }
+      #l-C:target ~ main .hd-l-C { display: block; }
+      #l-N:target ~ main .home { display: none; }
+      #l-N:target ~ main .card.M-l.C-N { display: block; }
+      #l-N:target ~ main .hd-l-N { display: block; }
+      #l-J:target ~ main .home { display: none; }
+      #l-J:target ~ main .card.M-l.C-J { display: block; }
+      #l-J:target ~ main .hd-l-J { display: block; }
+      #l-O:target ~ main .home { display: none; }
+      #l-O:target ~ main .card.M-l.C-O { display: block; }
+      #l-O:target ~ main .hd-l-O { display: block; }
+      #l-T:target ~ main .home { display: none; }
+      #l-T:target ~ main .card.M-l.C-T { display: block; }
+      #l-T:target ~ main .hd-l-T { display: block; }
+      #l-W:target ~ main .home { display: none; }
+      #l-W:target ~ main .card.M-l.C-W { display: block; }
+      #l-W:target ~ main .hd-l-W { display: block; }
+      #l-M:target ~ main .home { display: none; }
+      #l-M:target ~ main .card.M-l.C-M { display: block; }
+      #l-M:target ~ main .hd-l-M { display: block; }
+      #l-I:target ~ main .home { display: none; }
+      #l-I:target ~ main .card.M-l.C-I { display: block; }
+      #l-I:target ~ main .hd-l-I { display: block; }
+      #l-K:target ~ main .home { display: none; }
+      #l-K:target ~ main .card.M-l.C-K { display: block; }
+      #l-K:target ~ main .hd-l-K { display: block; }
+      #l-F:target ~ main .home { display: none; }
+      #l-F:target ~ main .card.M-l.C-F { display: block; }
+      #l-F:target ~ main .hd-l-F { display: block; }
+      #l-D:target ~ main .home { display: none; }
+      #l-D:target ~ main .card.M-l.C-D { display: block; }
+      #l-D:target ~ main .hd-l-D { display: block; }
+      #l-V:target ~ main .home { display: none; }
+      #l-V:target ~ main .card.M-l.C-V { display: block; }
+      #l-V:target ~ main .hd-l-V { display: block; }
+      #l-X:target ~ main .home { display: none; }
+      #l-X:target ~ main .card.M-l.C-X { display: block; }
+      #l-X:target ~ main .hd-l-X { display: block; }
+      #d:target ~ main .home { display: none; }
+      #d:target ~ main .cuis-d { display: block; }
+      #d-all:target ~ main .home { display: none; }
+      #d-all:target ~ main .card.M-d { display: block; }
+      #d-all:target ~ main .hd-d-all { display: block; }
+      #d-C:target ~ main .home { display: none; }
+      #d-C:target ~ main .card.M-d.C-C { display: block; }
+      #d-C:target ~ main .hd-d-C { display: block; }
+      #d-S:target ~ main .home { display: none; }
+      #d-S:target ~ main .card.M-d.C-S { display: block; }
+      #d-S:target ~ main .hd-d-S { display: block; }
+      #d-H:target ~ main .home { display: none; }
+      #d-H:target ~ main .card.M-d.C-H { display: block; }
+      #d-H:target ~ main .hd-d-H { display: block; }
+      #d-J:target ~ main .home { display: none; }
+      #d-J:target ~ main .card.M-d.C-J { display: block; }
+      #d-J:target ~ main .hd-d-J { display: block; }
+      #d-O:target ~ main .home { display: none; }
+      #d-O:target ~ main .card.M-d.C-O { display: block; }
+      #d-O:target ~ main .hd-d-O { display: block; }
+      #d-T:target ~ main .home { display: none; }
+      #d-T:target ~ main .card.M-d.C-T { display: block; }
+      #d-T:target ~ main .hd-d-T { display: block; }
+      #d-W:target ~ main .home { display: none; }
+      #d-W:target ~ main .card.M-d.C-W { display: block; }
+      #d-W:target ~ main .hd-d-W { display: block; }
+      #d-M:target ~ main .home { display: none; }
+      #d-M:target ~ main .card.M-d.C-M { display: block; }
+      #d-M:target ~ main .hd-d-M { display: block; }
+      #d-I:target ~ main .home { display: none; }
+      #d-I:target ~ main .card.M-d.C-I { display: block; }
+      #d-I:target ~ main .hd-d-I { display: block; }
+      #d-F:target ~ main .home { display: none; }
+      #d-F:target ~ main .card.M-d.C-F { display: block; }
+      #d-F:target ~ main .hd-d-F { display: block; }
+      #d-D:target ~ main .home { display: none; }
+      #d-D:target ~ main .card.M-d.C-D { display: block; }
+      #d-D:target ~ main .hd-d-D { display: block; }
+      #d-V:target ~ main .home { display: none; }
+      #d-V:target ~ main .card.M-d.C-V { display: block; }
+      #d-V:target ~ main .hd-d-V { display: block; }
+      #d-X:target ~ main .home { display: none; }
+      #d-X:target ~ main .card.M-d.C-X { display: block; }
+      #d-X:target ~ main .hd-d-X { display: block; }
+      #s:target ~ main .home { display: none; }
+      #s:target ~ main .cuis-s { display: block; }
+      #s-all:target ~ main .home { display: none; }
+      #s-all:target ~ main .card.M-s { display: block; }
+      #s-all:target ~ main .hd-s-all { display: block; }
+      #s-C:target ~ main .home { display: none; }
+      #s-C:target ~ main .card.M-s.C-C { display: block; }
+      #s-C:target ~ main .hd-s-C { display: block; }
+      #s-S:target ~ main .home { display: none; }
+      #s-S:target ~ main .card.M-s.C-S { display: block; }
+      #s-S:target ~ main .hd-s-S { display: block; }
+      #s-H:target ~ main .home { display: none; }
+      #s-H:target ~ main .card.M-s.C-H { display: block; }
+      #s-H:target ~ main .hd-s-H { display: block; }
+      #s-W:target ~ main .home { display: none; }
+      #s-W:target ~ main .card.M-s.C-W { display: block; }
+      #s-W:target ~ main .hd-s-W { display: block; }
+      #s-M:target ~ main .home { display: none; }
+      #s-M:target ~ main .card.M-s.C-M { display: block; }
+      #s-M:target ~ main .hd-s-M { display: block; }
+      #s-I:target ~ main .home { display: none; }
+      #s-I:target ~ main .card.M-s.C-I { display: block; }
+      #s-I:target ~ main .hd-s-I { display: block; }
+      #s-F:target ~ main .home { display: none; }
+      #s-F:target ~ main .card.M-s.C-F { display: block; }
+      #s-F:target ~ main .hd-s-F { display: block; }
+      #s-D:target ~ main .home { display: none; }
+      #s-D:target ~ main .card.M-s.C-D { display: block; }
+      #s-D:target ~ main .hd-s-D { display: block; }
+      #s-X:target ~ main .home { display: none; }
+      #s-X:target ~ main .card.M-s.C-X { display: block; }
+      #s-X:target ~ main .hd-s-X { display: block; }
+      #all:target ~ main .home { display: none; }
+      #all:target ~ main .card { display: block; }
+      #all:target ~ main .hd-all { display: block; }
+      #b-all:target ~ main .areas,
+      #b-C:target ~ main .areas,
+      #b-N:target ~ main .areas,
+      #b-M:target ~ main .areas,
+      #b-I:target ~ main .areas,
+      #b-K:target ~ main .areas,
+      #b-F:target ~ main .areas,
+      #b-D:target ~ main .areas,
+      #b-V:target ~ main .areas,
+      #b-X:target ~ main .areas,
+      #l-all:target ~ main .areas,
+      #l-C:target ~ main .areas,
+      #l-N:target ~ main .areas,
+      #l-J:target ~ main .areas,
+      #l-O:target ~ main .areas,
+      #l-T:target ~ main .areas,
+      #l-W:target ~ main .areas,
+      #l-M:target ~ main .areas,
+      #l-I:target ~ main .areas,
+      #l-K:target ~ main .areas,
+      #l-F:target ~ main .areas,
+      #l-D:target ~ main .areas,
+      #l-V:target ~ main .areas,
+      #l-X:target ~ main .areas,
+      #d-all:target ~ main .areas,
+      #d-C:target ~ main .areas,
+      #d-S:target ~ main .areas,
+      #d-H:target ~ main .areas,
+      #d-J:target ~ main .areas,
+      #d-O:target ~ main .areas,
+      #d-T:target ~ main .areas,
+      #d-W:target ~ main .areas,
+      #d-M:target ~ main .areas,
+      #d-I:target ~ main .areas,
+      #d-F:target ~ main .areas,
+      #d-D:target ~ main .areas,
+      #d-V:target ~ main .areas,
+      #d-X:target ~ main .areas,
+      #s-all:target ~ main .areas,
+      #s-C:target ~ main .areas,
+      #s-S:target ~ main .areas,
+      #s-H:target ~ main .areas,
+      #s-W:target ~ main .areas,
+      #s-M:target ~ main .areas,
+      #s-I:target ~ main .areas,
+      #s-F:target ~ main .areas,
+      #s-D:target ~ main .areas,
+      #s-X:target ~ main .areas,
+      #all:target ~ main .areas {
+        display: block;
+      }
+
+      #ar-A:checked ~ main .card:not(.A-A) { display: none !important; }
+      #ar-A:checked ~ main label[for=ar-A] { background: var(--acc); color: #fff; }
+      #ar-P:checked ~ main .card:not(.A-P) { display: none !important; }
+      #ar-P:checked ~ main label[for=ar-P] { background: var(--acc); color: #fff; }
+      #ar-R:checked ~ main .card:not(.A-R) { display: none !important; }
+      #ar-R:checked ~ main label[for=ar-R] { background: var(--acc); color: #fff; }
+      #ar-G:checked ~ main .card:not(.A-G) { display: none !important; }
+      #ar-G:checked ~ main label[for=ar-G] { background: var(--acc); color: #fff; }
+      #ar-M:checked ~ main .card:not(.A-M) { display: none !important; }
+      #ar-M:checked ~ main label[for=ar-M] { background: var(--acc); color: #fff; }
+      #ar-K:checked ~ main .card:not(.A-K) { display: none !important; }
+      #ar-K:checked ~ main label[for=ar-K] { background: var(--acc); color: #fff; }
+      #ar-J:checked ~ main .card:not(.A-J) { display: none !important; }
+      #ar-J:checked ~ main label[for=ar-J] { background: var(--acc); color: #fff; }
+      #ar-x:checked ~ main label[for=ar-x] { background: var(--acc); color: #fff; }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 0 12px 26px;
+        }
+
+        header {
+          margin-top: 12px;
+          padding: 18px 14px 16px;
+          border-radius: 22px;
+        }
+
+        .logo { font-size: 1.7rem; }
+        .sub { font-size: 0.95rem; }
+
+        .meals,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .meal {
+          min-height: 118px;
+          padding: 14px 12px;
+        }
+
+        .meal .e { font-size: 2rem; }
+        .meal b { font-size: 1.15rem; }
+        .meal small { font-size: 0.78rem; }
+
+        .cu {
+          min-height: 58px;
+          padding: 12px 10px;
+        }
+
+        .chips {
+          gap: 6px;
+        }
+
+        .chips label {
+          flex: 1 1 calc(50% - 6px);
+          text-align: center;
+          min-width: 0;
+          padding: 8px 10px;
+          font-size: 0.83rem;
+        }
+
+        .card {
+          padding: 12px;
+        }
+
+        .card h3 {
+          font-size: 1rem;
+          line-height: 1.35;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .logo { font-size: 1.45rem; }
+        h2 { font-size: 1.25rem; }
+        .all { width: 100%; }
+        .tag { font-size: 0.76rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="b" class="t"></div>
+    <div id="b-all" class="t"></div>
+    <div id="b-C" class="t"></div>
+    <div id="b-N" class="t"></div>
+    <div id="b-M" class="t"></div>
+    <div id="b-I" class="t"></div>
+    <div id="b-K" class="t"></div>
+    <div id="b-F" class="t"></div>
+    <div id="b-D" class="t"></div>
+    <div id="b-V" class="t"></div>
+    <div id="b-X" class="t"></div>
+    <div id="l" class="t"></div>
+    <div id="l-all" class="t"></div>
+    <div id="l-C" class="t"></div>
+    <div id="l-N" class="t"></div>
+    <div id="l-J" class="t"></div>
+    <div id="l-O" class="t"></div>
+    <div id="l-T" class="t"></div>
+    <div id="l-W" class="t"></div>
+    <div id="l-M" class="t"></div>
+    <div id="l-I" class="t"></div>
+    <div id="l-K" class="t"></div>
+    <div id="l-F" class="t"></div>
+    <div id="l-D" class="t"></div>
+    <div id="l-V" class="t"></div>
+    <div id="l-X" class="t"></div>
+    <div id="d" class="t"></div>
+    <div id="d-all" class="t"></div>
+    <div id="d-C" class="t"></div>
+    <div id="d-S" class="t"></div>
+    <div id="d-H" class="t"></div>
+    <div id="d-J" class="t"></div>
+    <div id="d-O" class="t"></div>
+    <div id="d-T" class="t"></div>
+    <div id="d-W" class="t"></div>
+    <div id="d-M" class="t"></div>
+    <div id="d-I" class="t"></div>
+    <div id="d-F" class="t"></div>
+    <div id="d-D" class="t"></div>
+    <div id="d-V" class="t"></div>
+    <div id="d-X" class="t"></div>
+    <div id="s" class="t"></div>
+    <div id="s-all" class="t"></div>
+    <div id="s-C" class="t"></div>
+    <div id="s-S" class="t"></div>
+    <div id="s-H" class="t"></div>
+    <div id="s-W" class="t"></div>
+    <div id="s-M" class="t"></div>
+    <div id="s-I" class="t"></div>
+    <div id="s-F" class="t"></div>
+    <div id="s-D" class="t"></div>
+    <div id="s-X" class="t"></div>
+    <div id="all" class="t"></div>
+    <input type="radio" name="ar" id="ar-x" class="rd" checked />
+    <input type="radio" name="ar" id="ar-A" class="rd" />
+    <input type="radio" name="ar" id="ar-P" class="rd" />
+    <input type="radio" name="ar" id="ar-R" class="rd" />
+    <input type="radio" name="ar" id="ar-G" class="rd" />
+    <input type="radio" name="ar" id="ar-M" class="rd" />
+    <input type="radio" name="ar" id="ar-K" class="rd" />
+    <input type="radio" name="ar" id="ar-J" class="rd" />
+
+    <header>
+      <h1 class="logo">🍜 Makan <b>Kepong</b> &amp; Menjalara</h1>
+      <p class="sub">Pick a time of day, then a cuisine. No fuss!</p>
+    </header>
+
+    <main>
+      <section class="home">
+        <h2>When are you eating?</h2>
+        <div class="meals">
+          <a class="meal" href="#b" style="background:linear-gradient(135deg,#fbbf24,#f97316)"><span class="e">🥐</span><b>Breakfast</b><small>Kopitiam, noodles, dim sum, coffee</small><i>89 places</i></a>
+          <a class="meal" href="#l" style="background:linear-gradient(135deg,#34d399,#047857)"><span class="e">🍱</span><b>Lunch</b><small>Rice, noodles and set meals</small><i>209 places</i></a>
+          <a class="meal" href="#d" style="background:linear-gradient(135deg,#fb7185,#be123c)"><span class="e">🍽️</span><b>Dinner</b><small>Sit-down meals, hotpot, seafood</small><i>178 places</i></a>
+          <a class="meal" href="#s" style="background:linear-gradient(135deg,#818cf8,#3730a3)"><span class="e">🌙</span><b>Supper</b><small>Late-night cravings</small><i>67 places</i></a>
+        </div>
+        <p class="center"><a class="all" href="#all">🍴 See all 250 places</a></p>
+        <p class="tip center">Looking for something? Use your browser's Find (Ctrl+F, or Share → Find on Page on iPhone).</p>
+      </section>
+
+      <section class="cuis cuis-b">
+        <a class="back" href="#">← Back</a>
+        <p class="steps">Step 2 of 3</p>
+        <h2>🥐 Breakfast: what cuisine?</h2>
+        <div class="grid">
+          <a class="cu" href="#b-all"><span>✨</span><div><b>All cuisines</b><small>89 places</small></div></a>
+          <a class="cu" href="#b-C"><span>🥡</span><div><b>Chinese</b><small>3 places</small></div></a>
+          <a class="cu" href="#b-N"><span>🍜</span><div><b>Noodles</b><small>27 places</small></div></a>
+          <a class="cu" href="#b-M"><span>🍛</span><div><b>Malay &amp; Mamak</b><small>10 places</small></div></a>
+          <a class="cu" href="#b-I"><span>🫓</span><div><b>Indian</b><small>2 places</small></div></a>
+          <a class="cu" href="#b-K"><span>☕</span><div><b>Kopitiam &amp; Dim Sum</b><small>29 places</small></div></a>
+          <a class="cu" href="#b-F"><span>🧋</span><div><b>Cafe &amp; Drinks</b><small>14 places</small></div></a>
+          <a class="cu" href="#b-D"><span>🍧</span><div><b>Dessert</b><small>1 places</small></div></a>
+          <a class="cu" href="#b-V"><span>🥬</span><div><b>Vegetarian</b><small>2 places</small></div></a>
+          <a class="cu" href="#b-X"><span>🥟</span><div><b>Taiwanese &amp; Others</b><small>1 places</small></div></a>
+        </div>
+      </section>
+
+      <section class="cuis cuis-l">
+        <a class="back" href="#">← Back</a>
+        <p class="steps">Step 2 of 3</p>
+        <h2>🍱 Lunch: what cuisine?</h2>
+        <div class="grid">
+          <a class="cu" href="#l-all"><span>✨</span><div><b>All cuisines</b><small>209 places</small></div></a>
+          <a class="cu" href="#l-C"><span>🥡</span><div><b>Chinese</b><small>43 places</small></div></a>
+          <a class="cu" href="#l-N"><span>🍜</span><div><b>Noodles</b><small>27 places</small></div></a>
+          <a class="cu" href="#l-J"><span>🍣</span><div><b>Japanese</b><small>22 places</small></div></a>
+          <a class="cu" href="#l-O"><span>🥩</span><div><b>Korean</b><small>5 places</small></div></a>
+          <a class="cu" href="#l-T"><span>🌶️</span><div><b>Thai</b><small>10 places</small></div></a>
+          <a class="cu" href="#l-W"><span>🍔</span><div><b>Western &amp; Fast Food</b><small>9 places</small></div></a>
+          <a class="cu" href="#l-M"><span>🍛</span><div><b>Malay &amp; Mamak</b><small>10 places</small></div></a>
+          <a class="cu" href="#l-I"><span>🫓</span><div><b>Indian</b><small>2 places</small></div></a>
+          <a class="cu" href="#l-K"><span>☕</span><div><b>Kopitiam &amp; Dim Sum</b><small>29 places</small></div></a>
+          <a class="cu" href="#l-F"><span>🧋</span><div><b>Cafe &amp; Drinks</b><small>16 places</small></div></a>
+          <a class="cu" href="#l-D"><span>🍧</span><div><b>Dessert</b><small>14 places</small></div></a>
+          <a class="cu" href="#l-V"><span>🥬</span><div><b>Vegetarian</b><small>12 places</small></div></a>
+          <a class="cu" href="#l-X"><span>🥟</span><div><b>Taiwanese &amp; Others</b><small>10 places</small></div></a>
+        </div>
+      </section>
+
+      <section class="cuis cuis-d">
+        <a class="back" href="#">← Back</a>
+        <p class="steps">Step 2 of 3</p>
+        <h2>🍽️ Dinner: what cuisine?</h2>
+        <div class="grid">
+          <a class="cu" href="#d-all"><span>✨</span><div><b>All cuisines</b><small>178 places</small></div></a>
+          <a class="cu" href="#d-C"><span>🥡</span><div><b>Chinese</b><small>44 places</small></div></a>
+          <a class="cu" href="#d-S"><span>🦀</span><div><b>Seafood</b><small>15 places</small></div></a>
+          <a class="cu" href="#d-H"><span>🍲</span><div><b>Hotpot &amp; BBQ</b><small>18 places</small></div></a>
+          <a class="cu" href="#d-J"><span>🍣</span><div><b>Japanese</b><small>22 places</small></div></a>
+          <a class="cu" href="#d-O"><span>🥩</span><div><b>Korean</b><small>5 places</small></div></a>
+          <a class="cu" href="#d-T"><span>🌶️</span><div><b>Thai</b><small>10 places</small></div></a>
+          <a class="cu" href="#d-W"><span>🍔</span><div><b>Western &amp; Fast Food</b><small>11 places</small></div></a>
+          <a class="cu" href="#d-M"><span>🍛</span><div><b>Malay &amp; Mamak</b><small>10 places</small></div></a>
+          <a class="cu" href="#d-I"><span>🫓</span><div><b>Indian</b><small>2 places</small></div></a>
+          <a class="cu" href="#d-F"><span>🧋</span><div><b>Cafe &amp; Drinks</b><small>1 places</small></div></a>
+          <a class="cu" href="#d-D"><span>🍧</span><div><b>Dessert</b><small>15 places</small></div></a>
+          <a class="cu" href="#d-V"><span>🥬</span><div><b>Vegetarian</b><small>12 places</small></div></a>
+          <a class="cu" href="#d-X"><span>🥟</span><div><b>Taiwanese &amp; Others</b><small>13 places</small></div></a>
+        </div>
+      </section>
+
+      <section class="cuis cuis-s">
+        <a class="back" href="#">← Back</a>
+        <p class="steps">Step 2 of 3</p>
+        <h2>🌙 Supper: what cuisine?</h2>
+        <div class="grid">
+          <a class="cu" href="#s-all"><span>✨</span><div><b>All cuisines</b><small>67 places</small></div></a>
+          <a class="cu" href="#s-C"><span>🥡</span><div><b>Chinese</b><small>1 places</small></div></a>
+          <a class="cu" href="#s-S"><span>🦀</span><div><b>Seafood</b><small>15 places</small></div></a>
+          <a class="cu" href="#s-H"><span>🍲</span><div><b>Hotpot &amp; BBQ</b><small>18 places</small></div></a>
+          <a class="cu" href="#s-W"><span>🍔</span><div><b>Western &amp; Fast Food</b><small>2 places</small></div></a>
+          <a class="cu" href="#s-M"><span>🍛</span><div><b>Malay &amp; Mamak</b><small>10 places</small></div></a>
+          <a class="cu" href="#s-I"><span>🫓</span><div><b>Indian</b><small>2 places</small></div></a>
+          <a class="cu" href="#s-F"><span>🧋</span><div><b>Cafe &amp; Drinks</b><small>1 places</small></div></a>
+          <a class="cu" href="#s-D"><span>🍧</span><div><b>Dessert</b><small>15 places</small></div></a>
+          <a class="cu" href="#s-X"><span>🥟</span><div><b>Taiwanese &amp; Others</b><small>3 places</small></div></a>
+        </div>
+      </section>
+
+      <section class="hd hd-b-all"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · All cuisines</h2></section>
+      <section class="hd hd-b-C"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · 🥡 Chinese</h2></section>
+      <section class="hd hd-b-N"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · 🍜 Noodles</h2></section>
+      <section class="hd hd-b-M"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · 🍛 Malay &amp; Mamak</h2></section>
+      <section class="hd hd-b-I"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · 🫓 Indian</h2></section>
+      <section class="hd hd-b-K"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · ☕ Kopitiam &amp; Dim Sum</h2></section>
+      <section class="hd hd-b-F"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · 🧋 Cafe &amp; Drinks</h2></section>
+      <section class="hd hd-b-D"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · 🍧 Dessert</h2></section>
+      <section class="hd hd-b-V"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · 🥬 Vegetarian</h2></section>
+      <section class="hd hd-b-X"><a class="back" href="#b">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🥐 Breakfast · 🥟 Taiwanese &amp; Others</h2></section>
+      <section class="hd hd-l-all"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · All cuisines</h2></section>
+      <section class="hd hd-l-C"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🥡 Chinese</h2></section>
+      <section class="hd hd-l-N"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🍜 Noodles</h2></section>
+      <section class="hd hd-l-J"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🍣 Japanese</h2></section>
+      <section class="hd hd-l-O"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🥩 Korean</h2></section>
+      <section class="hd hd-l-T"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🌶️ Thai</h2></section>
+      <section class="hd hd-l-W"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🍔 Western &amp; Fast Food</h2></section>
+      <section class="hd hd-l-M"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🍛 Malay &amp; Mamak</h2></section>
+      <section class="hd hd-l-I"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🫓 Indian</h2></section>
+      <section class="hd hd-l-K"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · ☕ Kopitiam &amp; Dim Sum</h2></section>
+      <section class="hd hd-l-F"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🧋 Cafe &amp; Drinks</h2></section>
+      <section class="hd hd-l-D"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🍧 Dessert</h2></section>
+      <section class="hd hd-l-V"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🥬 Vegetarian</h2></section>
+      <section class="hd hd-l-X"><a class="back" href="#l">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍱 Lunch · 🥟 Taiwanese &amp; Others</h2></section>
+      <section class="hd hd-d-all"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · All cuisines</h2></section>
+      <section class="hd hd-d-C"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🥡 Chinese</h2></section>
+      <section class="hd hd-d-S"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🦀 Seafood</h2></section>
+      <section class="hd hd-d-H"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🍲 Hotpot &amp; BBQ</h2></section>
+      <section class="hd hd-d-J"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🍣 Japanese</h2></section>
+      <section class="hd hd-d-O"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🥩 Korean</h2></section>
+      <section class="hd hd-d-T"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🌶️ Thai</h2></section>
+      <section class="hd hd-d-W"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🍔 Western &amp; Fast Food</h2></section>
+      <section class="hd hd-d-M"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🍛 Malay &amp; Mamak</h2></section>
+      <section class="hd hd-d-I"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🫓 Indian</h2></section>
+      <section class="hd hd-d-F"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🧋 Cafe &amp; Drinks</h2></section>
+      <section class="hd hd-d-D"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🍧 Dessert</h2></section>
+      <section class="hd hd-d-V"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🥬 Vegetarian</h2></section>
+      <section class="hd hd-d-X"><a class="back" href="#d">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🍽️ Dinner · 🥟 Taiwanese &amp; Others</h2></section>
+      <section class="hd hd-s-all"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · All cuisines</h2></section>
+      <section class="hd hd-s-C"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · 🥡 Chinese</h2></section>
+      <section class="hd hd-s-S"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · 🦀 Seafood</h2></section>
+      <section class="hd hd-s-H"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · 🍲 Hotpot &amp; BBQ</h2></section>
+      <section class="hd hd-s-W"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · 🍔 Western &amp; Fast Food</h2></section>
+      <section class="hd hd-s-M"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · 🍛 Malay &amp; Mamak</h2></section>
+      <section class="hd hd-s-I"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · 🫓 Indian</h2></section>
+      <section class="hd hd-s-F"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · 🧋 Cafe &amp; Drinks</h2></section>
+      <section class="hd hd-s-D"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · 🍧 Dessert</h2></section>
+      <section class="hd hd-s-X"><a class="back" href="#s">← Back to cuisines</a><p class="steps">Step 3 of 3 · best rated first</p><h2>🌙 Supper · 🥟 Taiwanese &amp; Others</h2></section>
+      <section class="hd hd-all"><a class="back" href="#">← Back</a><h2>🍴 All 250 places</h2></section>
+
+      <div class="areas">
+        <p class="steps">Filter by area:</p>
+        <div class="chips">
+          <label for="ar-x">All areas</label>
+          <label for="ar-A">AEON Metro Prima</label>
+          <label for="ar-P">Jalan Prima / Pusat Niaga</label>
+          <label for="ar-R">Laman Rimbunan</label>
+          <label for="ar-G">Kepong'Gi Square</label>
+          <label for="ar-M">Metro Perdana / Fortune Ave</label>
+          <label for="ar-K">Old Kepong / Jln Kepong</label>
+          <label for="ar-J">Bandar Menjalara</label>
+        </div>
+      </div>
+
+      <div class="list">
+        <div class="card A-J C-W M-d M-s"><h3>Burger Hood Bandar Menjalara</h3><span class="tag">⭐ 5.0</span><span class="tag">🍔 Western &amp; Fast Food</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Burger%20Hood%20Bandar%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-K M-b M-l"><h3>Dong Sao 东嫂面档</h3><span class="tag">⭐ 5.0</span><span class="tag">☕ Kopitiam &amp; Dim Sum</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Dong%20Sao%20%E4%B8%9C%E5%AB%82%E9%9D%A2%E6%A1%A3%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-C M-l M-d"><h3>Feng Fu 豐富美食魚王館</h3><span class="tag">⭐ 5.0</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Feng%20Fu%20%E8%B1%90%E5%AF%8C%E7%BE%8E%E9%A3%9F%E9%AD%9A%E7%8E%8B%E9%A4%A8%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-H M-d M-s"><h3>Jie Di Lia Spicy Hotpot</h3><span class="tag">⭐ 5.0</span><span class="tag">RM 20–40</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Jie%20Di%20Lia%20Spicy%20Hotpot%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-X M-d M-s"><h3>Mala Labao 麻辣辣宝</h3><span class="tag">⭐ 5.0</span><span class="tag">RM 40+</span><span class="tag">🥟 Taiwanese &amp; Others</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Mala%20Labao%20%E9%BA%BB%E8%BE%A3%E8%BE%A3%E5%AE%9D%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-K M-b M-l"><h3>Pak.Tao.Lou (Uncle Popiah)</h3><span class="tag">⭐ 5.0</span><span class="tag">☕ Kopitiam &amp; Dim Sum</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Pak.Tao.Lou%20%28Uncle%20Popiah%29%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-K C-K M-b M-l"><h3>Sotongpaku</h3><span class="tag">⭐ 5.0</span><span class="tag">RM 1–20</span><span class="tag">☕ Kopitiam &amp; Dim Sum</span><span class="tag">📍 Old Kepong / Jln Kepong</span><p class="tip">Best sotong paku in town</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sotongpaku%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-A C-F M-b M-l"><h3>YanCha</h3><span class="tag">⭐ 5.0</span><span class="tag">RM 1–20</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 AEON Metro Prima</span><p class="tip">Bubble tea in the AEON food court</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=YanCha%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-F M-b M-l"><h3>CYou Lemon @ Shell Menjalara</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 1–20</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">��� Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=CYou%20Lemon%20%40%20Shell%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-F M-d M-s"><h3>Dimme KL</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 1–20</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Dimme%20KL%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-C M-l M-d"><h3>Heng Long Bak Kut Teh 興隆肉骨茶</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Heng%20Long%20Bak%20Kut%20Teh%20%E8%88%88%E9%9A%86%E8%82%89%E9%AA%A8%E8%8C%B6%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-O M-l M-d"><h3>Korean BBQ Mr. Lim</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 20–40</span><span class="tag">🥩 Korean</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Korean%20BBQ%20Mr.%20Lim%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-C M-l M-d"><h3>Luckypot 幸湘菜馆</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Huge portions, Hunan-style dishes</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Luckypot%20%E5%B9%B8%E6%B9%98%E8%8F%9C%E9%A6%86%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-V M-l M-d"><h3>Naughty Root</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 20–40</span><span class="tag">🥬 Vegetarian</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Loved vegetarian spot</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Naughty%20Root%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-X M-l M-d"><h3>Robot Chef Kepong</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 1–20</span><span class="tag">🥟 Taiwanese &amp; Others</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Robot%20Chef%20Kepong%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-V M-l M-d"><h3>SongJu</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 20–40</span><span class="tag">🥬 Vegetarian</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Vegetarian</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=SongJu%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-H M-d M-s"><h3>Starry Sky Marina Hot Pot</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 20–40</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Starry%20Sky%20Marina%20Hot%20Pot%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-J M-l M-d"><h3>Teahaus Menjalara</h3><span class="tag">⭐ 4.9</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Teahaus%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-F M-b M-l"><h3>Teddy Bear Cafe</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 20–40</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Healthy brunch</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Teddy%20Bear%20Cafe%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-H M-d M-s"><h3>Yangbutong 羊不同</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 40+</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Lamb BBQ favourite</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Yangbutong%20%E7%BE%8A%E4%B8%8D%E5%90%8C%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-P C-S M-d M-s"><h3>Yip Kei Seafood 葉记海鲜</h3><span class="tag">⭐ 4.9</span><span class="tag">RM 20–40</span><span class="tag">🦀 Seafood</span><span class="tag">📍 Jalan Prima / Pusat Niaga</span><p class="tip">Rustic Kuala Selangor-style dishes</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Yip%20Kei%20Seafood%20%E8%91%89%E8%AE%B0%E6%B5%B7%E9%B2%9C%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-H M-d M-s"><h3>92 Satay</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=92%20Satay%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-W M-l M-d"><h3>All Ace Burger &amp; Chicken</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 1–20</span><span class="tag">🍔 Western &amp; Fast Food</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Fan-favourite burgers</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=All%20Ace%20Burger%20%26%20Chicken%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-G C-T M-l M-d"><h3>Aroi Thai</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🌶️ Thai</span><span class="tag">📍 Kepong'Gi Square</span><p class="tip">Stir-fried kailan, tom yam</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Aroi%20Thai%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-S M-d M-s"><h3>Big Big Crab 大隻蟹</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🦀 Seafood</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Crabs and beef hor fun</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Big%20Big%20Crab%20%E5%A4%A7%E9%9A%BB%E8%9F%B9%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-P C-V M-l M-d"><h3>Biogreen SoulFull Cuisine</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🥬 Vegetarian</span><span class="tag">📍 Jalan Prima / Pusat Niaga</span><p class="tip">Big portions</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Biogreen%20SoulFull%20Cuisine%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-X M-l M-d"><h3>Brewmaster Menjalara</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🥟 Taiwanese &amp; Others</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Brewmaster%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-J M-l M-d"><h3>Chic Cafe Menjalara</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Chic%20Cafe%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-G C-C M-l M-d"><h3>Fish With You 鱼你在一起</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Kepong'Gi Square</span><p class="tip">Tasty and cheap fish dishes</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Fish%20With%20You%20%E9%B1%BC%E4%BD%A0%E5%9C%A8%E4%B8%80%E8%B5%B7%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-G C-N M-b M-l"><h3>Good Taste 好好食面馆</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Kepong'Gi Square</span><p class="tip">Popular noodle house</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Good%20Taste%20%E5%A5%BD%E5%A5%BD%E9%A3%9F%E9%9D%A2%E9%A6%86%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-H M-d M-s"><h3>HAHA Buffet Steamboat BBQ</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 40+</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Fresh prawns, buffet</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=HAHA%20Buffet%20Steamboat%20BBQ%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-N M-b M-l"><h3>Hainan Pang Seafood Curry Noodles</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 1–20</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Hainan%20Pang%20Seafood%20Curry%20Noodles%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-F M-b M-l"><h3>La Juiceria Superfoods</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=La%20Juiceria%20Superfoods%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-C M-l M-d"><h3>Luck Farm</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Hunan cuisine</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Luck%20Farm%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-G C-D M-l M-d M-s"><h3>Machii Tong Sui 麻吉糖水</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🍧 Dessert</span><span class="tag">📍 Kepong'Gi Square</span><p class="tip">Taufufa, pistachio soft serve</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Machii%20Tong%20Sui%20%E9%BA%BB%E5%90%89%E7%B3%96%E6%B0%B4%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-H M-d M-s"><h3>Mafuji Hot Pot 马服记</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 40+</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Signature mala soup</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Mafuji%20Hot%20Pot%20%E9%A9%AC%E6%9C%8D%E8%AE%B0%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-X M-l M-d"><h3>Mr. Wu Taiwan Menjalara</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🥟 Taiwanese &amp; Others</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Mr.%20Wu%20Taiwan%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-J M-l M-d"><h3>Niki Japanese Dining</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Reliable Japanese</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Niki%20Japanese%20Dining%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-D M-l M-d M-s"><h3>O'cha</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 1–20</span><span class="tag">🍧 Dessert</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Open late</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=O%27cha%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-T M-l M-d"><h3>Ruk Thai Cuisine</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🌶️ Thai</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Ruk%20Thai%20Cuisine%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-P C-C M-l M-d"><h3>Street Porridge 友粥食</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 1–20</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Jalan Prima / Pusat Niaga</span><p class="tip">Fresh, balanced flavours</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Street%20Porridge%20%E5%8F%8B%E7%B2%A5%E9%A3%9F%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-T M-l M-d"><h3>Sun Thai Food (Chinese Muslim)</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🌶️ Thai</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sun%20Thai%20Food%20%28Chinese%20Muslim%29%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-N M-b M-l"><h3>Super Kitchen Chilli Pan Mee</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 1–20</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Super%20Kitchen%20Chilli%20Pan%20Mee%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-J M-l M-d"><h3>Sushi Hiro Menjalara</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sushi%20Hiro%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-G C-J M-l M-d"><h3>Sushi Plus</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 1–20</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Kepong'Gi Square</span><p class="tip">Try the Nasi Kerabu Unagi</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Sushi%20Plus%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-K C-S M-d M-s"><h3>TalkCrab</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 40+</span><span class="tag">🦀 Seafood</span><span class="tag">📍 Old Kepong / Jln Kepong</span><p class="tip">Teochew marinated crab, lala pot</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=TalkCrab%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-K M-b M-l"><h3>Tasty Porridge Menjalara</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">☕ Kopitiam &amp; Dim Sum</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Tasty%20Porridge%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-J M-l M-d"><h3>Twelves Shokudo 十二食堂</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Twelves%20Shokudo%20%E5%8D%81%E4%BA%8C%E9%A3%9F%E5%A0%82%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-F M-b M-l"><h3>Uncommon Coffee</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Uncommon%20Coffee%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-X M-l M-d"><h3>Wonderful 9 Restaurant &amp; Cafe</h3><span class="tag">⭐ 4.8</span><span class="tag">🥟 Taiwanese &amp; Others</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Wonderful%209%20Restaurant%20%26%20Cafe%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-C M-l M-d"><h3>Yip Kee Bak Kut Teh 葉記肉骨茶</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Yip%20Kee%20Bak%20Kut%20Teh%20%E8%91%89%E8%A8%98%E8%82%89%E9%AA%A8%E8%8C%B6%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-N M-b M-l"><h3>Yoo Noodle 优一面館</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 1–20</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Yoo%20Noodle%20%E4%BC%98%E4%B8%80%E9%9D%A2%E9%A4%A8%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-N M-b M-l"><h3>老板面 Lao Ban Mian</h3><span class="tag">⭐ 4.8</span><span class="tag">RM 1–20</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=%E8%80%81%E6%9D%BF%E9%9D%A2%20Lao%20Ban%20Mian%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-A C-M M-b M-l M-d M-s"><h3>Bungkus Kaw Kaw</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 1–20</span><span class="tag">🍛 Malay &amp; Mamak</span><span class="tag">📍 AEON Metro Prima</span><p class="tip">Nasi lemak ayam merah, Milo kaw kaw</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Bungkus%20Kaw%20Kaw%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-G C-H M-d M-s"><h3>Chao Liu Xian Hotpot</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 40+</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Kepong'Gi Square</span><p class="tip">Lovely broth</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Chao%20Liu%20Xian%20Hotpot%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-C M-l M-d"><h3>Eat Well</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Eat%20Well%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-D M-l M-d M-s"><h3>Grandma Ong 王奶奶面粉粿</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 1–20</span><span class="tag">🍧 Dessert</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Classic dessert</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Grandma%20Ong%20%E7%8E%8B%E5%A5%B6%E5%A5%B6%E9%9D%A2%E7%B2%89%E7%B2%BF%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-C M-l M-d"><h3>Hakshan Menjalara</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Hakshan%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-N M-b M-l"><h3>Har Sin Sin 虾鲜鲜</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Handmade prawn paste, pan mee</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Har%20Sin%20Sin%20%E8%99%BE%E9%B2%9C%E9%B2%9C%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-K C-C M-l M-d"><h3>Mingmom 名妈中餐厅</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Old Kepong / Jln Kepong</span><p class="tip">Generous portions</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Mingmom%20%E5%90%8D%E5%A6%88%E4%B8%AD%E9%A4%90%E5%8E%85%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-N M-b M-l"><h3>Mouth Mee 嘴爱面</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 1–20</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Cheap and tasty noodles</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Mouth%20Mee%20%E5%98%B4%E7%88%B1%E9%9D%A2%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-X M-l M-d"><h3>Mr. Wu Taiwan Restaurant</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥟 Taiwanese &amp; Others</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Taiwanese comfort food</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Mr.%20Wu%20Taiwan%20Restaurant%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-N M-b M-l"><h3>Noodle Art Menjalara</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Noodle%20Art%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-C M-l M-d"><h3>QHouse 港湾茶餐厅</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=QHouse%20%E6%B8%AF%E6%B9%BE%E8%8C%B6%E9%A4%90%E5%8E%85%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-K C-H M-d M-s"><h3>QQ BBQ Steamboat Buffet</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 40+</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Old Kepong / Jln Kepong</span><p class="tip">Great variety, tasty soup</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=QQ%20BBQ%20Steamboat%20Buffet%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-N M-b M-l"><h3>SRK Borneo Noodle 砂洲麵館</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 1–20</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Sarawak-style noodles</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=SRK%20Borneo%20Noodle%20%E7%A0%82%E6%B4%B2%E9%BA%B5%E9%A4%A8%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-J M-l M-d"><h3>Shin Zushi</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Sushi crowd-pleaser</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Shin%20Zushi%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-J M-l M-d"><h3>Shin Zushi Menjalara</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Shin%20Zushi%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-X M-l M-d"><h3>Taiwan Tea House</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥟 Taiwanese &amp; Others</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Taiwan%20Tea%20House%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-H M-d M-s"><h3>Tan Hotpot Menjalara</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Tan%20Hotpot%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-C M-l M-d"><h3>Tasty Porridge 品粥</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Comforting porridge</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Tasty%20Porridge%20%E5%93%81%E7%B2%A5%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-F M-b M-l"><h3>The Liberica Coffee</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Liberica%20Coffee%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-W M-l M-d"><h3>WAU! Fish &amp; Chips</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🍔 Western &amp; Fast Food</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=WAU%21%20Fish%20%26%20Chips%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-C M-l M-d"><h3>Yat Gor Roast Goose Noodle House</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Yat%20Gor%20Roast%20Goose%20Noodle%20House%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-K M-b M-l"><h3>Yat Pan Dim Sum 一品点心坊</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">☕ Kopitiam &amp; Dim Sum</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Yat%20Pan%20Dim%20Sum%20%E4%B8%80%E5%93%81%E7%82%B9%E5%BF%83%E5%9D%8A%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-N M-b M-l"><h3>Young Sanna Mee</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Young%20Sanna%20Mee%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-P C-C M-l M-d"><h3>Yue Restaurant</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Jalan Prima / Pusat Niaga</span><p class="tip">Steamed fish</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Yue%20Restaurant%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-J M-l M-d"><h3>Zen &amp; Co Japanese Fusion Cafe</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Zen%20%26%20Co%20Japanese%20Fusion%20Cafe%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-C M-l M-d"><h3>iian Cuisine (Chinese Muslim)</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=iian%20Cuisine%20%28Chinese%20Muslim%29%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-H M-d M-s"><h3>阿旺冬瓜盅火锅</h3><span class="tag">⭐ 4.7</span><span class="tag">RM 40+</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=%E9%98%BF%E6%97%BA%E5%86%AC%E7%93%9C%E7%9B%85%E7%81%AB%E9%94%85%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-D M-l M-d M-s"><h3>Aftermeal Desserts</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🍧 Dessert</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Open late</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Aftermeal%20Desserts%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-T M-l M-d"><h3>Arooii Thai Chicken Rice</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 1–20</span><span class="tag">🌶️ Thai</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Arooii%20Thai%20Chicken%20Rice%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-C M-l M-d"><h3>Big Tree Lin Kee Steamed Fish Head</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Big%20Tree%20Lin%20Kee%20Steamed%20Fish%20Head%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-D M-l M-d M-s"><h3>Cherish Dessert Cafe</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🍧 Dessert</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Oolong peach and black sesame gelato</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Cherish%20Dessert%20Cafe%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-D M-l M-d M-s"><h3>Dao Desserts</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🍧 Dessert</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Sweet treats</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Dao%20Desserts%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-J M-l M-d"><h3>Fujisawa Izakaya 藤泽居酒屋</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Lunch sets, pet-friendly outdoor area</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Fujisawa%20Izakaya%20%E8%97%A4%E6%B3%BD%E5%B1%85%E9%85%92%E5%B1%8B%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-H M-d M-s"><h3>Hao Jia Xiang Hot Pot</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Hao%20Jia%20Xiang%20Hot%20Pot%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-J M-l M-d"><h3>King Kong Ramen</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Delicious ramen</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=King%20Kong%20Ramen%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-O M-l M-d"><h3>KyoChon Chicken Menjalara</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🥩 Korean</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=KyoChon%20Chicken%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-A C-J M-l M-d"><h3>Menya Sankodo 麺や三光堂</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 AEON Metro Prima</span><p class="tip">Ikan bilis soup noodles, karaage</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Menya%20Sankodo%20%E9%BA%AE%E3%82%84%E4%B8%89%E5%85%89%E5%A0%82%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-I M-b M-l M-d M-s"><h3>Restoran Thambi Corner</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 1–20</span><span class="tag">🫓 Indian</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Restoran%20Thambi%20Corner%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-C M-l M-d"><h3>SENFOR 御三宝</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=SENFOR%20%E5%BE%A1%E4%B8%89%E5%AE%9D%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-A C-C M-l M-d"><h3>Siong Tong Gai 上汤街</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 AEON Metro Prima</span><p class="tip">Great lunch set with soup and dessert</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Siong%20Tong%20Gai%20%E4%B8%8A%E6%B1%A4%E8%A1%97%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-F M-l"><h3>Summer Bakes'</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Summer%20Bakes%27%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-K C-K M-b M-l"><h3>Xinji Jian Bing 鑫记煎饼果子</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 1–20</span><span class="tag">☕ Kopitiam &amp; Dim Sum</span><span class="tag">📍 Old Kepong / Jln Kepong</span><p class="tip">Jian bing breakfast</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Xinji%20Jian%20Bing%20%E9%91%AB%E8%AE%B0%E7%85%8E%E9%A5%BC%E6%9E%9C%E5%AD%90%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-K M-b M-l"><h3>Yitcha Kawkaw Kopitiam</h3><span class="tag">⭐ 4.6</span><span class="tag">RM 20–40</span><span class="tag">☕ Kopitiam &amp; Dim Sum</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">HK-style cafe</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Yitcha%20Kawkaw%20Kopitiam%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-M M-b M-l M-d M-s"><h3>101 Heritage</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🍛 Malay &amp; Mamak</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Best nasi lemak in Kepong, friendly staff</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=101%20Heritage%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-F M-b M-l"><h3>Bon Nikko</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Bon%20Nikko%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-X M-d M-s"><h3>Deewow Restaurant</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 40+</span><span class="tag">🥟 Taiwanese &amp; Others</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Deewow%20Restaurant%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-C M-l M-d"><h3>Fatt Kee Kepong</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🥡 Chinese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Fatt%20Kee%20Kepong%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-P C-H M-d M-s"><h3>Happy City Steamboat</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 40+</span><span class="tag">🍲 Hotpot &amp; BBQ</span><span class="tag">📍 Jalan Prima / Pusat Niaga</span><p class="tip">Fresh prawns</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Happy%20City%20Steamboat%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-O M-l M-d"><h3>Hwa Lyuk Korean Grill</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🥩 Korean</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Korean BBQ</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Hwa%20Lyuk%20Korean%20Grill%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-D M-l M-d M-s"><h3>Inside Scoop Menjalara</h3><span class="tag">⭐ 4.5</span><span class="tag">🍧 Dessert</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Inside%20Scoop%20Menjalara%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-V M-l M-d"><h3>Jujube Vegetarian House</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 1–20</span><span class="tag">🥬 Vegetarian</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Jujube%20Vegetarian%20House%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-K M-b M-l"><h3>Kowloon Fengwei</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">☕ Kopitiam &amp; Dim Sum</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Kowloon%20Fengwei%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-N M-b M-l"><h3>Lim Authentic Tasty Noodles 林家好味馆</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 1–20</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Lim%20Authentic%20Tasty%20Noodles%20%E6%9E%97%E5%AE%B6%E5%A5%BD%E5%91%B3%E9%A6%86%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-N M-b M-l"><h3>Ling Leh Kee Sibu Kampua</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 1–20</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Ling%20Leh%20Kee%20Sibu%20Kampua%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-W M-l M-d"><h3>Meat One Cuisine</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🍔 Western &amp; Fast Food</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Meat%20One%20Cuisine%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-W M-l M-d"><h3>Moment Cuisine 扒西餐屋</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🍔 Western &amp; Fast Food</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Western grill</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Moment%20Cuisine%20%E6%89%92%E8%A5%BF%E9%A4%90%E5%B1%8B%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-M M-b M-l M-d M-s"><h3>Restoran Bismillah</h3><span class="tag">⭐ 4.5</span><span class="tag">🍛 Malay &amp; Mamak</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Restoran%20Bismillah%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-J M-l M-d"><h3>Shan Shi Japanese Cafe</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Well-prepared grilled fish</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Shan%20Shi%20Japanese%20Cafe%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-M C-T M-l M-d"><h3>Thai In Mookata</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🌶️ Thai</span><span class="tag">📍 Metro Perdana / Fortune Ave</span><p class="tip">Pork slices, green Thai milk tea</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Thai%20In%20Mookata%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-D M-l M-d M-s"><h3>The Soybean Factory</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 1–20</span><span class="tag">🍧 Dessert</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Soybean%20Factory%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-P C-N M-b M-l"><h3>Tiow Hainanese Beef Noodle</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 1–20</span><span class="tag">🍜 Noodles</span><span class="tag">📍 Jalan Prima / Pusat Niaga</span><p class="tip">Great chilli sauce</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Tiow%20Hainanese%20Beef%20Noodle%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-R C-F M-b M-l"><h3>Togather 讲饮讲吃</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 Laman Rimbunan</span><p class="tip">Popular hangout</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Togather%20%E8%AE%B2%E9%A5%AE%E8%AE%B2%E5%90%83%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-J C-J M-l M-d"><h3>Wasabi Plus 山葵日料</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Bandar Menjalara</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Wasabi%20Plus%20%E5%B1%B1%E8%91%B5%E6%97%A5%E6%96%99%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-K C-J M-l M-d"><h3>Yokotaya 横田屋</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 20–40</span><span class="tag">🍣 Japanese</span><span class="tag">📍 Old Kepong / Jln Kepong</span><p class="tip">Quality worth the price</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Yokotaya%20%E6%A8%AA%E7%94%B0%E5%B1%8B%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+        <div class="card A-A C-F M-b M-l"><h3>ZUS Coffee</h3><span class="tag">⭐ 4.5</span><span class="tag">RM 1–20</span><span class="tag">🧋 Cafe &amp; Drinks</span><span class="tag">📍 AEON Metro Prima</span><p class="tip">Quick coffee fix</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=ZUS%20Coffee%20Kepong%20Kuala%20Lumpur">Open in Maps →</a></div>
+      </div>
+
+      <footer>Ratings from Google Maps. Meal times are estimates from opening hours, so check before you go!</footer>
+    </main>
+  </body>
+</html>
